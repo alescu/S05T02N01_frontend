@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import type { Pet } from "@/types/pet"
 import { Play, Trash2, Heart, Zap, Smile, Shield } from "lucide-react"
+import { useLanguage } from "@/hooks/use-language"
 
 interface PetCardProps {
   pet: Pet
@@ -12,6 +13,8 @@ interface PetCardProps {
 }
 
 export default function PetCard({ pet, onDelete, onPlay }: PetCardProps) {
+  const { t } = useLanguage()
+
   const getPetEmoji = (type: string) => {
     return type.toLowerCase() === "cat" ? "🐱" : "🐶"
   }
@@ -23,11 +26,36 @@ export default function PetCard({ pet, onDelete, onPlay }: PetCardProps) {
   }
 
   const characteristics = [
-    { name: "Hunger", value: pet.hunger, icon: Heart, color: "text-red-500" },
-    { name: "Happiness", value: pet.happiness, icon: Smile, color: "text-yellow-500" },
-    { name: "Energy", value: pet.energy, icon: Zap, color: "text-blue-500" },
-    { name: "Health", value: pet.health, icon: Shield, color: "text-green-500" },
-    { name: "Hygiene", value: pet.hygiene || 5, icon: Heart, color: "text-purple-500" },
+    {
+      name: t("petDetail", "characteristicsHunger"),
+      value: pet.hunger,
+      icon: Heart,
+      color: "text-red-500",
+    },
+    {
+      name: t("petDetail", "characteristicsHappiness"),
+      value: pet.happiness,
+      icon: Smile,
+      color: "text-yellow-500",
+    },
+    {
+      name: t("petDetail", "characteristicsEnergy"),
+      value: pet.energy,
+      icon: Zap,
+      color: "text-blue-500",
+    },
+    {
+      name: t("petDetail", "characteristicsHealth"),
+      value: pet.health,
+      icon: Shield,
+      color: "text-green-500",
+    },
+    {
+      name: t("petDetail", "characteristicsHygiene"),
+      value: pet.hygiene || 5,
+      icon: Heart,
+      color: "text-purple-500",
+    },
   ]
 
   return (
@@ -67,7 +95,7 @@ export default function PetCard({ pet, onDelete, onPlay }: PetCardProps) {
             className="flex-1 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all duration-200"
           >
             <Play className="h-4 w-4 mr-2" />
-            Play
+            {t("petDetail", "actionsPlay").replace("🎾 ", "")}
           </Button>
           <Button onClick={onDelete} variant="outline" className="border-2 border-red-300 text-red-600 hover:bg-red-50">
             <Trash2 className="h-4 w-4" />
